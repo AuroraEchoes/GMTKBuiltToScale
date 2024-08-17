@@ -1,10 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4me7xnxeg0hq"]
+[gd_scene load_steps=11 format=3 uid="uid://b4me7xnxeg0hq"]
 
 [ext_resource type="PackedScene" uid="uid://fh2pbrh1ah0h" path="res://scenes/Robot.tscn" id="1_nwld5"]
 [ext_resource type="Material" uid="uid://dcmlyiimf4cij" path="res://assets/shaders/HighlightShader.tres" id="2_0kpj1"]
 [ext_resource type="Script" path="res://scripts/ScalableObject.gd" id="2_d4u5a"]
+[ext_resource type="Shader" path="res://scripts/shaders/HighlightShader.gdshader" id="2_l5mwc"]
 [ext_resource type="Texture2D" uid="uid://dl0ijf3o05vef" path="res://assets/textures/temp_metal_texture.png" id="3_7yt1g"]
 [ext_resource type="Script" path="res://scripts/TempUIScript.gd" id="5_sj8fu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o1ubk"]
+resource_local_to_scene = true
+shader = ExtResource("2_l5mwc")
+shader_parameter/color = Color(0.490414, 0.718412, 0.435397, 1)
+shader_parameter/enabled = false
+shader_parameter/pulse_speed = 1.0
+shader_parameter/overlay_max_alpha = 0.8
 
 [sub_resource type="QuadMesh" id="QuadMesh_0yyd1"]
 size = Vector2(600, 25)
@@ -12,10 +21,13 @@ size = Vector2(600, 25)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pdmm5"]
 size = Vector2(600, 25)
 
+[sub_resource type="QuadMesh" id="QuadMesh_nlw2u"]
+size = Vector2(200, 8)
+
 [node name="LevelTest" type="Node2D"]
 
 [node name="Robot" parent="." instance=ExtResource("1_nwld5")]
-material = ExtResource("2_0kpj1")
+material = SubResource("ShaderMaterial_o1ubk")
 position = Vector2(54, 112)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
@@ -30,6 +42,39 @@ script = ExtResource("2_d4u5a")
 input_pickable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeshInstance2D/StaticBody2D"]
+visible = false
+position = Vector2(0.0649352, 0.0531909)
+shape = SubResource("RectangleShape2D_pdmm5")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
+texture_filter = 1
+material = ExtResource("2_0kpj1")
+position = Vector2(623, 320)
+rotation = 1.5708
+mesh = SubResource("QuadMesh_0yyd1")
+texture = ExtResource("3_7yt1g")
+script = ExtResource("2_d4u5a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MeshInstance2D2"]
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeshInstance2D2/StaticBody2D"]
+visible = false
+position = Vector2(0.0649352, 0.0531909)
+shape = SubResource("RectangleShape2D_pdmm5")
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="."]
+texture_filter = 1
+material = ExtResource("2_0kpj1")
+position = Vector2(301, 579)
+mesh = SubResource("QuadMesh_nlw2u")
+texture = ExtResource("3_7yt1g")
+script = ExtResource("2_d4u5a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MeshInstance2D3"]
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeshInstance2D3/StaticBody2D"]
 visible = false
 position = Vector2(0.0649352, 0.0531909)
 shape = SubResource("RectangleShape2D_pdmm5")
@@ -66,3 +111,10 @@ bbcode_enabled = true
 text = "Metal | 500kg | WBR: 200kg"
 fit_content = true
 autowrap_mode = 0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 547.0
+offset_right = 161.0
+offset_bottom = 570.0
+text = "vvv Get here to win"

@@ -14,6 +14,8 @@ func _ready() -> void:
 	collision.mouse_entered.connect(_select)
 	collision.mouse_exited.connect(_deselect)
 	_set_shader_enabled(false)
+	# TODO: REMOVE THIS ITS A BAD HACK
+	material = material.duplicate()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("increase_scale") and selected:
@@ -27,24 +29,42 @@ func _change_scale(amount: Vector2):
 	# Check we have enough weight to scale
 	var current_weight: float = _calculate_weight()
 	var new_weight: float = _calculate_weight(clamped_scale)
-	# Note the abs() here —  growing and shrinking BOTH cost the weight budget
-	var delta_weight: float = abs(new_weight - current_weight)
 	# We now have two cases. If this is something we've already scaled and we're
 	# reverting that change, we should get that weight back into our pool
 	# Otherwise, we take the weight away
-	if delta_weight <= Global.level_weight_remaining:
-		Global.level_weight_remaining -= delta_weight;
-		# TODO: Check for clipping
-		create_tween().tween_property(self, "scale", clamped_scale, 0.1)
-		StaticEventManager.element_scaled.emit(material_type, delta_weight, new_weight)
+	# If clamped_scale is closer to 1 than self.scale is, we know we're going
+	# to regain that weight
+	var curr_dist_from_base_scl: float = abs((self.scale - Vector2(1, 1)).length())
+	var new_dist_from_base_scl: float = abs((clamped_scale - Vector2(1, 1)).length())
+	# For constency, we always want delta to be close to base - further from base
+	# Note the abs() here —  growing and shrinking BOTH cost the weight budget
+	var delta_weight: float
+	if new_dist_from_base_scl < curr_dist_from_base_scl:
+		delta_weight = abs(current_weight - new_weight)
+	else:
+		delta_weight = abs(new_weight - current_weight)
+	# We're returning to the base scale, and thus we're gaining weight
+	if new_dist_from_base_scl < curr_dist_from_base_scl:
+		Global.level_weight_remaining += delta_weight
+	# This is going to cost us weight, so check we have enough banked
+	elif delta_weight <= Global.level_weight_remaining:
+		Global.level_weight_remaining -= delta_weight
+	# We can't scale, and early return so as not to scale
+	else: 
+		StaticEventManager.failed_element_scale.emit()
+		return
 
+	# We know we're scaling, so let's do it!
+	# TODO: Check for clipping
+	create_tween().tween_property(self, "scale", clamped_scale, 0.1)
+	StaticEventManager.element_scaled.emit(material_type, delta_weight, new_weight)
 
 # Weight is defined as area (percentage of the screen)
 # multipled by the material weight coefficient
 # Scale factor parameter —  if you want to calculate a 
 # prospective scale by that amount. Default argument
 # will ignore it
-func _calculate_weight(scale_factor: Vector2 = Vector2(1.0, 1.0)) -> float:
+func _calculate_weight(scale_factor: Vector2 = self.scale) -> float:
 	# Find area
 	var mesh_size: Vector2 = mesh.size * scale_factor
 	var window_size = get_window().size
