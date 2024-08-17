@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dcmlyiimf4cij"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/HighlightShader.gdshader" id="1_nf24l"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_nf24l")
+shader_parameter/color = Color(0.490414, 0.718412, 0.435397, 1)
+shader_parameter/enabled = false
+shader_parameter/pulse_speed = 1.0
+shader_parameter/overlay_max_alpha = 0.8

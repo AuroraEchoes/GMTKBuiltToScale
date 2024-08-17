@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b4me7xnxeg0hq"]
 
 [ext_resource type="PackedScene" uid="uid://fh2pbrh1ah0h" path="res://scenes/Robot.tscn" id="1_nwld5"]
-[ext_resource type="Material" uid="uid://dcmlyiimf4cij" path="res://assets/shaders/OutlineShader.tres" id="2_0kpj1"]
+[ext_resource type="Material" uid="uid://dcmlyiimf4cij" path="res://assets/shaders/HighlightShader.tres" id="2_0kpj1"]
 [ext_resource type="Script" path="res://scripts/ScalableObject.gd" id="2_d4u5a"]
 [ext_resource type="Texture2D" uid="uid://dl0ijf3o05vef" path="res://assets/textures/temp_metal_texture.png" id="3_7yt1g"]
 [ext_resource type="Script" path="res://scripts/TempUIScript.gd" id="5_sj8fu"]
