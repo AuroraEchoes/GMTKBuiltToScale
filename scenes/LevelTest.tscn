@@ -1,62 +1,68 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4me7xnxeg0hq"]
+[gd_scene load_steps=8 format=3 uid="uid://b4me7xnxeg0hq"]
 
 [ext_resource type="PackedScene" uid="uid://fh2pbrh1ah0h" path="res://scenes/Robot.tscn" id="1_nwld5"]
-[ext_resource type="PackedScene" uid="uid://bm8xu2nsygh26" path="res://scenes/MouseAreaSelect.tscn" id="2_7k0da"]
+[ext_resource type="Material" uid="uid://dcmlyiimf4cij" path="res://assets/shaders/OutlineShader.tres" id="2_0kpj1"]
+[ext_resource type="Script" path="res://scripts/ScalableObject.gd" id="2_d4u5a"]
+[ext_resource type="Texture2D" uid="uid://dl0ijf3o05vef" path="res://assets/textures/temp_metal_texture.png" id="3_7yt1g"]
+[ext_resource type="Script" path="res://scripts/TempUIScript.gd" id="5_sj8fu"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_fprjv"]
-size = Vector2(10, 1)
+[sub_resource type="QuadMesh" id="QuadMesh_0yyd1"]
+size = Vector2(600, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pdmm5"]
-size = Vector2(9.61039, 0.978724)
+size = Vector2(600, 25)
 
 [node name="LevelTest" type="Node2D"]
 
 [node name="Robot" parent="." instance=ExtResource("1_nwld5")]
+material = ExtResource("2_0kpj1")
 position = Vector2(54, 112)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-position = Vector2(243, 167.235)
-scale = Vector2(49.6, 33.5)
-mesh = SubResource("QuadMesh_fprjv")
+texture_filter = 1
+material = ExtResource("2_0kpj1")
+position = Vector2(309, 167.235)
+mesh = SubResource("QuadMesh_0yyd1")
+texture = ExtResource("3_7yt1g")
+script = ExtResource("2_d4u5a")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="MeshInstance2D"]
+input_pickable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeshInstance2D/StaticBody2D"]
+visible = false
 position = Vector2(0.0649352, 0.0531909)
 shape = SubResource("RectangleShape2D_pdmm5")
 
-[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
-position = Vector2(243, 167.235)
-scale = Vector2(49.6, 33.5)
-mesh = SubResource("QuadMesh_fprjv")
+[node name="TempUI" type="CanvasLayer" parent="."]
+script = ExtResource("5_sj8fu")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="MeshInstance2D2"]
+[node name="MarginContainer" type="MarginContainer" parent="TempUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MeshInstance2D2/StaticBody2D"]
-position = Vector2(0.0649352, 0.0531909)
-shape = SubResource("RectangleShape2D_pdmm5")
+[node name="PanelContainer" type="PanelContainer" parent="TempUI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 
-[node name="MeshInstance2D3" type="MeshInstance2D" parent="."]
-position = Vector2(419.205, 275.695)
-scale = Vector2(49.6, 33.5)
-mesh = SubResource("QuadMesh_fprjv")
+[node name="MarginContainer" type="MarginContainer" parent="TempUI/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
-[node name="StaticBody2D" type="StaticBody2D" parent="MeshInstance2D3"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MeshInstance2D3/StaticBody2D"]
-position = Vector2(0.0649352, 0.0531909)
-shape = SubResource("RectangleShape2D_pdmm5")
-
-[node name="MeshInstance2D4" type="MeshInstance2D" parent="."]
-position = Vector2(243, 388.675)
-scale = Vector2(49.6, 33.5)
-mesh = SubResource("QuadMesh_fprjv")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="MeshInstance2D4"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MeshInstance2D4/StaticBody2D"]
-position = Vector2(0.0649352, 0.0531909)
-shape = SubResource("RectangleShape2D_pdmm5")
-
-[node name="MouseAreaSelect" parent="." instance=ExtResource("2_7k0da")]
-metadata/_edit_use_anchors_ = true
+[node name="InfoText" type="RichTextLabel" parent="TempUI/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Metal | 500kg | WBR: 200kg"
+fit_content = true
+autowrap_mode = 0

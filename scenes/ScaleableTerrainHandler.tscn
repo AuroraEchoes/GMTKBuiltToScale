@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqxebagq1lbrv"]
+
+[ext_resource type="Texture2D" uid="uid://dl0ijf3o05vef" path="res://assets/textures/temp_metal_texture.png" id="1_xahrg"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_spc6b"]
+
+[node name="ScaleableTerrainHandler" type="Node2D"]
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(210.25, 257.25)
+scale = Vector2(22.3437, 31.5938)
+texture = ExtResource("1_xahrg")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(168.75, 48.25)
+scale = Vector2(338.5, 97.5)
+mesh = SubResource("QuadMesh_spc6b")
+texture = ExtResource("1_xahrg")

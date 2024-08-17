@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://1sx4viwktvaw"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/NinePatchShader.gdshader" id="1_82pfw"]
+
+[resource]
+shader = ExtResource("1_82pfw")
+shader_parameter/scale = null
+shader_parameter/right = 3
+shader_parameter/top = 3
+shader_parameter/left = 3
+shader_parameter/bottom = 3
