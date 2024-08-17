@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://r7nab2u6fjec"]
+
+[ext_resource type="Script" path="res://scripts/DialogueManager.gd" id="1_hfhqr"]
+[ext_resource type="Texture2D" uid="uid://xyonc24gk8q0" path="res://assets/textures/high_quality_protagonist.png" id="1_pmln3"]
+[ext_resource type="Script" path="res://assets/resources/DialogueEntry.gd" id="2_3x1g8"]
+
+[sub_resource type="Resource" id="Resource_2kdb5"]
+script = ExtResource("2_3x1g8")
+portrait = 0
+dialogue = "[p][b]WELCOME TO THE JUNGLE[/b][/p][p]I really need some lorem ipsum but frankly...[/p][p]...this is funnier![/p]"
+name = "[u][s]???[/s][/u]"
+start_trigger = 1
+display_time = 2.0
+
+[sub_resource type="Resource" id="Resource_j4nkc"]
+script = ExtResource("2_3x1g8")
+portrait = 0
+dialogue = "I display s l o o o w l y"
+name = "[b]Knock Off Kirby[/b]"
+start_trigger = 1
+display_time = 5.0
+
+[sub_resource type="Resource" id="Resource_n1md1"]
+script = ExtResource("2_3x1g8")
+portrait = 0
+dialogue = "[p][b]butimrealquick[/b][/p][p]real, real quick~![/p]"
+name = "[b]High Quality Protagonist[/b]"
+start_trigger = 0
+display_time = 0.75
+
+[node name="DialogueManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hfhqr")
+queued_dialogue = Array[ExtResource("2_3x1g8")]([SubResource("Resource_2kdb5"), SubResource("Resource_j4nkc"), SubResource("Resource_n1md1")])
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 8
+text = "[LMB] to continue"
+justification_flags = 161
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="CharacterPortrait" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("1_pmln3")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Name" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Knock Off Kirby[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Dialogue" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Hello I have INVALUABLE information to contribute
+I am a very serious little guy who can be taken seriously
+and should not be mocked."
+fit_content = true
+autowrap_mode = 0

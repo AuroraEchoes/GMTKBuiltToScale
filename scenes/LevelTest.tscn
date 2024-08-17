@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4me7xnxeg0hq"]
+[gd_scene load_steps=12 format=3 uid="uid://b4me7xnxeg0hq"]
 
 [ext_resource type="PackedScene" uid="uid://fh2pbrh1ah0h" path="res://scenes/Robot.tscn" id="1_nwld5"]
-[ext_resource type="Material" uid="uid://dcmlyiimf4cij" path="res://assets/shaders/HighlightShader.tres" id="2_0kpj1"]
+[ext_resource type="Material" uid="uid://dcmlyiimf4cij" path="res://assets/materials/HighlightShader.tres" id="2_0kpj1"]
 [ext_resource type="Script" path="res://scripts/ScalableObject.gd" id="2_d4u5a"]
 [ext_resource type="Shader" path="res://scripts/shaders/HighlightShader.gdshader" id="2_l5mwc"]
 [ext_resource type="Texture2D" uid="uid://dl0ijf3o05vef" path="res://assets/textures/temp_metal_texture.png" id="3_7yt1g"]
 [ext_resource type="Script" path="res://scripts/TempUIScript.gd" id="5_sj8fu"]
+[ext_resource type="PackedScene" uid="uid://r7nab2u6fjec" path="res://scenes/DialogueManager.tscn" id="7_kktbp"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o1ubk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b7frg"]
 resource_local_to_scene = true
 shader = ExtResource("2_l5mwc")
 shader_parameter/color = Color(0.490414, 0.718412, 0.435397, 1)
@@ -27,7 +28,7 @@ size = Vector2(200, 8)
 [node name="LevelTest" type="Node2D"]
 
 [node name="Robot" parent="." instance=ExtResource("1_nwld5")]
-material = SubResource("ShaderMaterial_o1ubk")
+material = SubResource("ShaderMaterial_b7frg")
 position = Vector2(54, 112)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
@@ -111,6 +112,8 @@ bbcode_enabled = true
 text = "Metal | 500kg | WBR: 200kg"
 fit_content = true
 autowrap_mode = 0
+
+[node name="DialogueManager" parent="TempUI" instance=ExtResource("7_kktbp")]
 
 [node name="Label" type="Label" parent="."]
 offset_left = 12.0
