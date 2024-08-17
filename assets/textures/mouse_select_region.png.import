@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xyonc24gk8q0"
-path="res://.godot/imported/high_quality_protagonist.png-e187491f621017c8ab3a649a47eaea76.ctex"
+uid="uid://c8dkux27ndk4p"
+path="res://.godot/imported/mouse_select_region.png-dd9c2e07b8a513153f79746865da77cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/high_quality_protagonist.png"
-dest_files=["res://.godot/imported/high_quality_protagonist.png-e187491f621017c8ab3a649a47eaea76.ctex"]
+source_file="res://assets/textures/mouse_select_region.png"
+dest_files=["res://.godot/imported/mouse_select_region.png-dd9c2e07b8a513153f79746865da77cf.ctex"]
 
 [params]
 

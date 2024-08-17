@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bm8xu2nsygh26"]
+
+[ext_resource type="Script" path="res://scripts/MouseAreaSelect.gd" id="1_4n5xn"]
+[ext_resource type="Texture2D" uid="uid://c8dkux27ndk4p" path="res://assets/textures/mouse_select_region.png" id="1_j52nd"]
+
+[node name="MouseAreaSelect" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4n5xn")
+
+[node name="SelectionNinePatch" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 99.0
+offset_bottom = 104.0
+texture = ExtResource("1_j52nd")
+region_rect = Rect2(0, 0, 32, 32)
+patch_margin_left = 7
+patch_margin_top = 14
+patch_margin_right = 7
+patch_margin_bottom = 14
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
