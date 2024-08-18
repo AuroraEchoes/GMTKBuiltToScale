@@ -4,6 +4,9 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+func _ready() -> void:
+	StaticEventManager.request_player_node_path.connect(_on_request_player_node_path)
+
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -18,3 +21,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+func _on_request_player_node_path():
+	StaticEventManager.player_node_path.emit(get_path())

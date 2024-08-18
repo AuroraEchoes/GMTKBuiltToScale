@@ -3,6 +3,7 @@ extends Node
 const SCALE_AMOUNT: float = 0.2
 const MAX_SCALE: float = 2.5
 const MIN_SCALE: float = 0.1
+const GRAB_RANGE: float = 300.0
 
 var level_weight_remaining: float = 500.0
 

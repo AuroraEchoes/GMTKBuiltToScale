@@ -28,7 +28,7 @@ float process_axis(float coord, float pixel, float texture_pixel, float start, f
 }
 
 void fragment() {
-	vec2 target_mesh_size = mesh_size / 32.0;
+	vec2 target_mesh_size = mesh_size / 48.0;
 	vec2 pixel_size = TEXTURE_PIXEL_SIZE / target_mesh_size;
 	
 	vec2 mappedUV = vec2(

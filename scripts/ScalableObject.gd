@@ -2,6 +2,7 @@ extends MeshInstance2D
 
 @onready var collision: PhysicsBody2D = $StaticBody2D
 @onready var collider: CollisionShape2D = $StaticBody2D/CollisionShape2D
+@onready var player_ref: CharacterBody2D
 
 @export var material_type: Global.MaterialType
 
@@ -25,14 +26,33 @@ func _ready() -> void:
 	collider.global_position = global_position
 	var shader_material: ShaderMaterial = material
 	shader_material.set_shader_parameter("mesh_size", size * tracked_scale)
+	# I feel silly doing this, but I can't think of a nicer way to do this
+	StaticEventManager.player_node_path.connect(func(np: NodePath): player_ref = get_node(np))
+	StaticEventManager.request_player_node_path.emit()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("increase_scale") and selected:
-		_change_scale(Global.SCALE_AMOUNT)
+		if _player_in_range(): _change_scale(Global.SCALE_AMOUNT)
 	elif Input.is_action_just_pressed("decrease_scale") and selected:
-		_change_scale(-Global.SCALE_AMOUNT)
+		if _player_in_range(): _change_scale(-Global.SCALE_AMOUNT)
 
-func _physics_process(delta: float) -> void:
+func _player_in_range() -> bool:
+	var pos: Vector2 = player_ref.global_position
+	var collision_rect: Rect2 = collider.shape.get_rect()
+	var p1: Vector2 = collision_rect.position
+	var p2: Vector2 = Vector2(collision_rect.end.x, collision_rect.position.y)
+	var p3: Vector2 = collision_rect.end
+	var p4: Vector2 = Vector2(collision_rect.position.x, collision_rect.end.y)
+	var points: Array[Vector2] = [p1, p2, p3, p4]
+	var min_dist: Vector2 = Vector2.INF
+	for i in range(len(points)):
+		var closest: Vector2 = Geometry2D.get_closest_point_to_segment(pos, points[i % 4] + global_position, points[(i + 1) % 4] + global_position)
+		if (closest - pos).length() < min_dist.length():
+			min_dist = closest
+	var dist_from_player = ((min_dist) - pos).length()
+	return dist_from_player < Global.GRAB_RANGE
+
+func _physics_process(_delta: float) -> void:
 	position += collision.position
 	collider.position = Vector2.ZERO
 
@@ -51,13 +71,11 @@ func _change_scale(amount: float):
 	var new_dist_from_base_scl: float = abs(clamped_scale - 1)
 	# For constency, we always want delta to be close to base - further from base
 	# Note the abs() here —  growing and shrinking BOTH cost the weight budget
-	print(curr_dist_from_base_scl, " ", new_dist_from_base_scl)
 	var delta_weight: float
 	if new_dist_from_base_scl < curr_dist_from_base_scl:
 		delta_weight = abs(current_weight - new_weight)
 	else:
 		delta_weight = abs(new_weight - current_weight)
-	print(delta_weight)
 	# We're returning to the base scale, and thus we're gaining weight
 	if new_dist_from_base_scl < curr_dist_from_base_scl:
 		Global.level_weight_remaining += delta_weight
@@ -73,7 +91,6 @@ func _change_scale(amount: float):
 	# We know we're scaling, so let's do it!
 	# TODO: Check for clipping
 	tracked_scale = clamped_scale
-	print(tracked_scale)
 	tween_scale(self, "mesh:size", base_size * tracked_scale)
 	tween_scale(collider, "shape:size", base_size * tracked_scale)
 	StaticEventManager.element_scaled.emit(material_type, delta_weight, new_weight)
@@ -98,9 +115,10 @@ func _calculate_weight(scale_factor: float = tracked_scale) -> float:
 	return weight
 
 func _select():
-	selected = true
-	StaticEventManager.scalable_element_selected.emit(material_type, _calculate_weight())
-	_set_shader_enabled(true)
+	if _player_in_range():
+		selected = true
+		StaticEventManager.scalable_element_selected.emit(material_type, _calculate_weight())
+		_set_shader_enabled(true)
 
 func _deselect():
 	selected = false
@@ -111,7 +129,7 @@ func _set_shader_size():
 	var quad_mesh: QuadMesh = mesh
 	var size: Vector2 = quad_mesh.size
 	var shader_material: ShaderMaterial = material
-	shader_material.set_shader_parameter("mesh_size", size * tracked_scale)
+	shader_material.set_shader_parameter("mesh_size", size)
 
 # Set the value of the enabled parameter in the shader
 # This should toggle it highlighting
