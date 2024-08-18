@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbvuh5732ejjn"]
+
+[ext_resource type="Material" uid="uid://1sx4viwktvaw" path="res://assets/materials/NinePatchShader.tres" id="1_p60o5"]
+[ext_resource type="Texture2D" uid="uid://b6xmwhrqics2k" path="res://assets/textures/temp_pressure_plate.png" id="2_w7du6"]
+[ext_resource type="Script" path="res://scenes/levels/PressurePlate.gd" id="3_ootys"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_gdd5x"]
+size = Vector2(64, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fqsl"]
+
+[node name="PressurePlate" type="MeshInstance2D"]
+visible = false
+texture_filter = 1
+material = ExtResource("1_p60o5")
+position = Vector2(245, 142)
+mesh = SubResource("QuadMesh_gdd5x")
+texture = ExtResource("2_w7du6")
+script = ExtResource("3_ootys")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+visible = false
+input_pickable = true
+mass = 1000.0
+freeze = true
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 5
+linear_velocity = Vector2(0, 9.49)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+visible = false
+shape = SubResource("RectangleShape2D_8fqsl")
+
+[node name="WeightRemaining" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.5
+offset_top = -11.5
+offset_right = 20.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 12
+text = "50 kg"
+horizontal_alignment = 1
+vertical_alignment = 2

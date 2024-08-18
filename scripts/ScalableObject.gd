@@ -1,7 +1,8 @@
 extends MeshInstance2D
+class_name ScaleableObject
 
-@onready var collision: PhysicsBody2D = $StaticBody2D
-@onready var collider: CollisionShape2D = $StaticBody2D/CollisionShape2D
+@onready var collision: RigidBody2D = $RigidBody2D
+@onready var collider: CollisionShape2D = $RigidBody2D/CollisionShape2D
 @onready var player_ref: CharacterBody2D
 
 @export var material_type: Global.MaterialType
@@ -71,6 +72,7 @@ func _change_scale(amount: float):
 	var new_dist_from_base_scl: float = abs(clamped_scale - 1)
 	# For constency, we always want delta to be close to base - further from base
 	# Note the abs() here —  growing and shrinking BOTH cost the weight budget
+	collision.mass = new_weight
 	var delta_weight: float
 	if new_dist_from_base_scl < curr_dist_from_base_scl:
 		delta_weight = abs(current_weight - new_weight)

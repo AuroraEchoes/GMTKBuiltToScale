@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bmhisg2bjj8ig"]
+[gd_scene load_steps=24 format=3 uid="uid://bmhisg2bjj8ig"]
 
 [ext_resource type="Material" uid="uid://dx2mbjfqjjaq8" path="res://assets/materials/DarkenShader.tres" id="1_rsj38"]
 [ext_resource type="PackedScene" uid="uid://r7nab2u6fjec" path="res://scenes/DialogueManager.tscn" id="1_wfw6v"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/ScalableObject.gd" id="7_4st1v"]
 [ext_resource type="Texture2D" uid="uid://dn5gh0rsd2of" path="res://assets/textures/wood.png" id="8_lv2ol"]
 [ext_resource type="Texture2D" uid="uid://c2kk7vgq3cx75" path="res://assets/textures/background/background.png" id="9_ch5a4"]
+[ext_resource type="PackedScene" uid="uid://dbvuh5732ejjn" path="res://scenes/PressurePlate.tscn" id="15_lm5p6"]
 
 [sub_resource type="Resource" id="Resource_h41tj"]
 script = ExtResource("2_v74ds")
@@ -37,17 +38,17 @@ size = Vector2(5000, 25)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kcer8"]
 size = Vector2(600, 25)
 
-[sub_resource type="QuadMesh" id="QuadMesh_60nlx"]
-size = Vector2(600, 25)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7u6sf"]
-size = Vector2(600, 25)
-
 [sub_resource type="QuadMesh" id="QuadMesh_hr3ao"]
 size = Vector2(50, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o0rid"]
 size = Vector2(50, 50)
+
+[sub_resource type="QuadMesh" id="QuadMesh_60nlx"]
+size = Vector2(600, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7u6sf"]
+size = Vector2(600, 25)
 
 [node name="TestLevel" type="Node2D"]
 
@@ -152,47 +153,49 @@ mesh = SubResource("QuadMesh_dlydg")
 texture = ExtResource("6_6iu3f")
 script = ExtResource("7_4st1v")
 
-[node name="StaticBody2D" type="RigidBody2D" parent="Node2D/MeshInstance2D"]
+[node name="RigidBody2D" type="RigidBody2D" parent="Node2D/MeshInstance2D"]
 input_pickable = true
 mass = 1000.0
 gravity_scale = 0.0
 freeze = true
 continuous_cd = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D/RigidBody2D"]
 shape = SubResource("RectangleShape2D_kcer8")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Node2D/MeshInstance2D"]
-texture_filter = 1
-material = ExtResource("5_60ogm")
-position = Vector2(457, -197.235)
-mesh = SubResource("QuadMesh_60nlx")
-texture = ExtResource("6_6iu3f")
-script = ExtResource("7_4st1v")
-
-[node name="StaticBody2D" type="RigidBody2D" parent="Node2D/MeshInstance2D/MeshInstance2D"]
-input_pickable = true
-mass = 1000.0
-gravity_scale = 0.0
-freeze = true
-continuous_cd = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D/MeshInstance2D/StaticBody2D"]
-shape = SubResource("RectangleShape2D_7u6sf")
 
 [node name="MeshInstance2D2" type="MeshInstance2D" parent="Node2D"]
 texture_filter = 1
 material = ExtResource("5_60ogm")
-position = Vector2(309, 124.185)
+position = Vector2(249, 71)
 mesh = SubResource("QuadMesh_hr3ao")
 texture = ExtResource("8_lv2ol")
 script = ExtResource("7_4st1v")
 
-[node name="StaticBody2D" type="RigidBody2D" parent="Node2D/MeshInstance2D2"]
+[node name="RigidBody2D" type="RigidBody2D" parent="Node2D/MeshInstance2D2"]
 position = Vector2(0, 0.19)
 input_pickable = true
 gravity_scale = 0.6
 continuous_cd = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D2/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D2/RigidBody2D"]
 shape = SubResource("RectangleShape2D_o0rid")
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="Node2D"]
+texture_filter = 1
+material = ExtResource("5_60ogm")
+position = Vector2(766, -30)
+mesh = SubResource("QuadMesh_60nlx")
+texture = ExtResource("6_6iu3f")
+script = ExtResource("7_4st1v")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Node2D/MeshInstance2D3"]
+input_pickable = true
+mass = 1000.0
+gravity_scale = 0.0
+freeze = true
+continuous_cd = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D3/RigidBody2D"]
+shape = SubResource("RectangleShape2D_7u6sf")
+
+[node name="PressurePlate" parent="Node2D" instance=ExtResource("15_lm5p6")]
