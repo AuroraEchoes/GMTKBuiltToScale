@@ -1,11 +1,15 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://1sx4viwktvaw"]
 
-[ext_resource type="Shader" path="res://scripts/shaders/NinePatchShader.gdshader" id="1_82pfw"]
+[ext_resource type="Shader" path="res://scripts/shaders/NinePatchShader.gdshader" id="1_g3th6"]
 
 [resource]
-shader = ExtResource("1_82pfw")
-shader_parameter/scale = null
-shader_parameter/right = 3
-shader_parameter/top = 3
-shader_parameter/left = 3
-shader_parameter/bottom = 3
+shader = ExtResource("1_g3th6")
+shader_parameter/mesh_size = Vector2(600, 25)
+shader_parameter/right = 5
+shader_parameter/top = 5
+shader_parameter/left = 5
+shader_parameter/bottom = 5
+shader_parameter/color = Color(0.405067, 0.618, 0.335606, 1)
+shader_parameter/enabled = false
+shader_parameter/pulse_speed = 1.0
+shader_parameter/overlay_max_alpha = 0.5

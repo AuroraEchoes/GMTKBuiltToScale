@@ -1,0 +1,198 @@
+[gd_scene load_steps=23 format=3 uid="uid://bmhisg2bjj8ig"]
+
+[ext_resource type="Material" uid="uid://dx2mbjfqjjaq8" path="res://assets/materials/DarkenShader.tres" id="1_rsj38"]
+[ext_resource type="PackedScene" uid="uid://r7nab2u6fjec" path="res://scenes/DialogueManager.tscn" id="1_wfw6v"]
+[ext_resource type="Script" path="res://assets/resources/DialogueEntry.gd" id="2_v74ds"]
+[ext_resource type="Script" path="res://scripts/ParallaxConveyor.gd" id="3_egp4b"]
+[ext_resource type="PackedScene" uid="uid://fh2pbrh1ah0h" path="res://scenes/Robot.tscn" id="3_mgg4q"]
+[ext_resource type="Script" path="res://scripts/temp_WeightRemaining.gd" id="3_yr18w"]
+[ext_resource type="Texture2D" uid="uid://t3u7bvla4sc3" path="res://assets/textures/background/bottomrail.png" id="4_2i4j2"]
+[ext_resource type="Texture2D" uid="uid://7e8hc5jxpjp2" path="res://assets/textures/background/topconveyer.png" id="4_nss5k"]
+[ext_resource type="Texture2D" uid="uid://msmtpaftvnal" path="res://assets/textures/background/allboxes.png" id="4_xmxni"]
+[ext_resource type="Material" uid="uid://1sx4viwktvaw" path="res://assets/materials/NinePatchShader.tres" id="5_60ogm"]
+[ext_resource type="Texture2D" uid="uid://4axlilsb4uwv" path="res://assets/textures/steel.png" id="6_6iu3f"]
+[ext_resource type="Script" path="res://scripts/ScalableObject.gd" id="7_4st1v"]
+[ext_resource type="Texture2D" uid="uid://dn5gh0rsd2of" path="res://assets/textures/wood.png" id="8_lv2ol"]
+[ext_resource type="Texture2D" uid="uid://c2kk7vgq3cx75" path="res://assets/textures/background/background.png" id="9_ch5a4"]
+
+[sub_resource type="Resource" id="Resource_h41tj"]
+script = ExtResource("2_v74ds")
+portrait = 0
+dialogue = "[p][i]Look![/i] A hydraulic press.[/p][p]I wonder what wacky hijinx this will cause...[/p]"
+name = "[b]I crave a name[/b]"
+start_trigger = 0
+display_time = 2.0
+
+[sub_resource type="Resource" id="Resource_iddh4"]
+script = ExtResource("2_v74ds")
+portrait = 0
+dialogue = "Better not get crushed, though!"
+name = "[b]I crave a name[/b]"
+start_trigger = 1
+display_time = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_dlydg"]
+size = Vector2(5000, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kcer8"]
+size = Vector2(600, 25)
+
+[sub_resource type="QuadMesh" id="QuadMesh_60nlx"]
+size = Vector2(600, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7u6sf"]
+size = Vector2(600, 25)
+
+[sub_resource type="QuadMesh" id="QuadMesh_hr3ao"]
+size = Vector2(50, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0rid"]
+size = Vector2(50, 50)
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
+follow_viewport_enabled = true
+
+[node name="Boxes" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_filter = 1
+motion_scale = Vector2(0.1, 0.1)
+motion_offset = Vector2(0, -1000)
+motion_mirroring = Vector2(4320, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Boxes"]
+material = ExtResource("1_rsj38")
+texture = ExtResource("9_ch5a4")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 4320, 2860)
+
+[node name="Conveyor" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, -200)
+motion_scale = Vector2(2, 2)
+motion_mirroring = Vector2(2160, 0)
+
+[node name="Conveyor" type="Sprite2D" parent="ParallaxBackground/Conveyor"]
+material = ExtResource("1_rsj38")
+texture = ExtResource("4_nss5k")
+centered = false
+
+[node name="Rail" type="Sprite2D" parent="ParallaxBackground/Conveyor"]
+z_index = 2
+material = ExtResource("1_rsj38")
+position = Vector2(0, -290)
+texture = ExtResource("4_2i4j2")
+centered = false
+
+[node name="ConveyorBoxes" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, -200)
+motion_scale = Vector2(2, 2)
+motion_offset = Vector2(0, 585)
+motion_mirroring = Vector2(2200, 0)
+script = ExtResource("3_egp4b")
+scroll_speed = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ConveyorBoxes"]
+material = ExtResource("1_rsj38")
+texture = ExtResource("4_xmxni")
+centered = false
+region_enabled = true
+region_rect = Rect2(14.801, 635, 2160, 465)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogueManager" parent="CanvasLayer" instance=ExtResource("1_wfw6v")]
+visible = false
+queued_dialogue = Array[ExtResource("2_v74ds")]([SubResource("Resource_h41tj"), SubResource("Resource_iddh4")])
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="WeightRemaining" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "Weight Remaining: xkg"
+script = ExtResource("3_yr18w")
+
+[node name="Robot" parent="." instance=ExtResource("3_mgg4q")]
+
+[node name="Camera2D" type="Camera2D" parent="Robot"]
+scale = Vector2(0.333333, 0.333333)
+position_smoothing_enabled = true
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(371, 96)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Node2D"]
+texture_filter = 1
+material = ExtResource("5_60ogm")
+position = Vector2(309, 167.235)
+mesh = SubResource("QuadMesh_dlydg")
+texture = ExtResource("6_6iu3f")
+script = ExtResource("7_4st1v")
+
+[node name="StaticBody2D" type="RigidBody2D" parent="Node2D/MeshInstance2D"]
+input_pickable = true
+mass = 1000.0
+gravity_scale = 0.0
+freeze = true
+continuous_cd = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D/StaticBody2D"]
+shape = SubResource("RectangleShape2D_kcer8")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Node2D/MeshInstance2D"]
+texture_filter = 1
+material = ExtResource("5_60ogm")
+position = Vector2(457, -197.235)
+mesh = SubResource("QuadMesh_60nlx")
+texture = ExtResource("6_6iu3f")
+script = ExtResource("7_4st1v")
+
+[node name="StaticBody2D" type="RigidBody2D" parent="Node2D/MeshInstance2D/MeshInstance2D"]
+input_pickable = true
+mass = 1000.0
+gravity_scale = 0.0
+freeze = true
+continuous_cd = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D/MeshInstance2D/StaticBody2D"]
+shape = SubResource("RectangleShape2D_7u6sf")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="Node2D"]
+texture_filter = 1
+material = ExtResource("5_60ogm")
+position = Vector2(309, 124.185)
+mesh = SubResource("QuadMesh_hr3ao")
+texture = ExtResource("8_lv2ol")
+script = ExtResource("7_4st1v")
+
+[node name="StaticBody2D" type="RigidBody2D" parent="Node2D/MeshInstance2D2"]
+position = Vector2(0, 0.19)
+input_pickable = true
+gravity_scale = 0.6
+continuous_cd = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D2/StaticBody2D"]
+shape = SubResource("RectangleShape2D_o0rid")

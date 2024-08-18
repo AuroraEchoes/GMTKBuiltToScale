@@ -7,7 +7,8 @@ const MIN_SCALE: float = 0.1
 var level_weight_remaining: float = 500.0
 
 enum MaterialType {
-	Metal
+	Metal,
+	Wood
 }
 
 # Since we calculate a material's quantity by the percentage of the screen
@@ -16,5 +17,7 @@ func material_weight_coefficient(material: MaterialType) -> float:
 	match material:
 		MaterialType.Metal:
 			return 2000.0
+		MaterialType.Wood:
+			return 800.0
 		_:
 			return 0.0

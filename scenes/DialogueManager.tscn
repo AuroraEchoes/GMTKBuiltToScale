@@ -1,32 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://r7nab2u6fjec"]
+[gd_scene load_steps=3 format=3 uid="uid://r7nab2u6fjec"]
 
 [ext_resource type="Script" path="res://scripts/DialogueManager.gd" id="1_hfhqr"]
 [ext_resource type="Texture2D" uid="uid://xyonc24gk8q0" path="res://assets/textures/high_quality_protagonist.png" id="1_pmln3"]
-[ext_resource type="Script" path="res://assets/resources/DialogueEntry.gd" id="2_3x1g8"]
-
-[sub_resource type="Resource" id="Resource_2kdb5"]
-script = ExtResource("2_3x1g8")
-portrait = 0
-dialogue = "[p][b]WELCOME TO THE JUNGLE[/b][/p][p]I really need some lorem ipsum but frankly...[/p][p]...this is funnier![/p]"
-name = "[u][s]???[/s][/u]"
-start_trigger = 1
-display_time = 2.0
-
-[sub_resource type="Resource" id="Resource_j4nkc"]
-script = ExtResource("2_3x1g8")
-portrait = 0
-dialogue = "I display s l o o o w l y"
-name = "[b]Knock Off Kirby[/b]"
-start_trigger = 1
-display_time = 5.0
-
-[sub_resource type="Resource" id="Resource_n1md1"]
-script = ExtResource("2_3x1g8")
-portrait = 0
-dialogue = "[p][b]butimrealquick[/b][/p][p]real, real quick~![/p]"
-name = "[b]High Quality Protagonist[/b]"
-start_trigger = 0
-display_time = 0.75
 
 [node name="DialogueManager" type="Control"]
 layout_mode = 3
@@ -36,7 +11,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hfhqr")
-queued_dialogue = Array[ExtResource("2_3x1g8")]([SubResource("Resource_2kdb5"), SubResource("Resource_j4nkc"), SubResource("Resource_n1md1")])
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
