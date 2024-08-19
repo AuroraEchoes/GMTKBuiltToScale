@@ -18,7 +18,6 @@ func _take_selection():
 		selection_start = mouse_pos
 		# Since our ninepatch is hidden by deselecting, reshow it
 		selection_nine_patch.show()
-		print("new selection")
 	# We're continuing a preexisting selection.
 	# As a result, we want to render the temporary selected region,
 	# as a preview.

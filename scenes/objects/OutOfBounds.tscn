@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://drk7uunn36ho2"]
+
+[ext_resource type="Script" path="res://scripts/OutOfBounds.gd" id="1_kcrif"]
+
+[node name="OutOfBounds" type="Area2D"]
+script = ExtResource("1_kcrif")

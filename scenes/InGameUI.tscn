@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6ao2rqsxsbwc"]
+
+[ext_resource type="PackedScene" uid="uid://r7nab2u6fjec" path="res://scenes/DialogueManager.tscn" id="1_pelxg"]
+[ext_resource type="Script" path="res://scripts/temp_WeightRemaining.gd" id="2_laahi"]
+[ext_resource type="Script" path="res://scripts/InfoText.gd" id="3_egi6x"]
+
+[node name="InGameUI" type="CanvasLayer"]
+
+[node name="DialogueManager" parent="." instance=ExtResource("1_pelxg")]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="WeightRemaining" type="Label" parent="MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "Weight Remaining: xkg"
+script = ExtResource("2_laahi")
+
+[node name="SelectedInfoText" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("3_egi6x")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/SelectedInfoText"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Text" type="RichTextLabel" parent="MarginContainer/SelectedInfoText/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b][color=#ad1b38]You don’t have enough weight left to do that[/color][/b]"
+fit_content = true
+autowrap_mode = 0

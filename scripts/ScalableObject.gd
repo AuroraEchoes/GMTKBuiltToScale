@@ -6,12 +6,20 @@ class_name ScaleableObject
 @onready var player_ref: CharacterBody2D
 
 @export var material_type: Global.MaterialType
+@export var do_gravity: bool
 
 var selected: bool = false
 var tracked_scale: float = 1.0
 var base_size: Vector2
 
+signal self_trigger_scale_change(tracked_scale: float)
+
 func _ready() -> void:
+	if do_gravity:
+		collision.gravity_scale = 0.6
+	else:
+		collision.gravity_scale = 0.0
+		collision.freeze = true
 	set_notify_transform(true)
 	collision.mouse_entered.connect(_select)
 	collision.mouse_exited.connect(_deselect)
@@ -58,8 +66,15 @@ func _physics_process(_delta: float) -> void:
 	collider.position = Vector2.ZERO
 
 func _change_scale(amount: float):
+	var weight_remaining: float = 1.0e308
+	if get_parent().get_parent() is LevelInfo:
+		weight_remaining = get_parent().get_parent().weight_remaining
 	# Make sure we're not scaling outside of our range
 	var clamped_scale: float = clamp(tracked_scale + amount, Global.MIN_SCALE, Global.MAX_SCALE)
+	if tracked_scale + amount < Global.MIN_SCALE:
+		StaticEventManager.already_at_min_size.emit()
+	elif tracked_scale + amount > Global.MAX_SCALE:
+		StaticEventManager.already_at_max_size.emit()
 	# Check we have enough weight to scale
 	var current_weight: float = _calculate_weight()
 	var new_weight: float = _calculate_weight(clamped_scale)
@@ -80,22 +95,23 @@ func _change_scale(amount: float):
 		delta_weight = abs(new_weight - current_weight)
 	# We're returning to the base scale, and thus we're gaining weight
 	if new_dist_from_base_scl < curr_dist_from_base_scl:
-		Global.level_weight_remaining += delta_weight
+		weight_remaining += delta_weight
 	# This is going to cost us weight, so check we have enough banked
-	elif delta_weight <= Global.level_weight_remaining:
-		Global.level_weight_remaining -= delta_weight
+	elif delta_weight <= weight_remaining:
+		weight_remaining -= delta_weight
 	# We can't scale, and early return so as not to scale
 	else: 
-		StaticEventManager.failed_element_scale.emit()
-		print("failed")
+		StaticEventManager.not_enough_weight.emit()
 		return
 
 	# We know we're scaling, so let's do it!
-	# TODO: Check for clipping
 	tracked_scale = clamped_scale
+	self_trigger_scale_change.emit(tracked_scale)
 	tween_scale(self, "mesh:size", base_size * tracked_scale)
 	tween_scale(collider, "shape:size", base_size * tracked_scale)
 	StaticEventManager.element_scaled.emit(material_type, delta_weight, new_weight)
+	if get_parent().get_parent() is LevelInfo:
+		get_parent().get_parent().weight_remaining = weight_remaining
 
 func tween_scale(node: Node, property: String, value: Vector2):
 	create_tween().tween_property(node, property, value, 0.1)

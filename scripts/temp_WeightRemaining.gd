@@ -10,4 +10,8 @@ func _on_element_scaled(_mat_type: Global.MaterialType, _delta: float, _new: flo
 	_set_weight_remaining()
 
 func _set_weight_remaining():
-	text = "Weight remaining: " + str(int(Global.level_weight_remaining)) + "kg"
+	var par: Node2D = get_parent().get_parent().get_parent().get_parent().get_parent()
+	if par is LevelInfo:
+		text = "Weight remaining: " + str(int(par.weight_remaining)) + "kg"
+	else:
+		hide()

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dm0diyti586sk"]
+
+[ext_resource type="Material" uid="uid://1sx4viwktvaw" path="res://assets/materials/NinePatchShader.tres" id="1_1svh1"]
+[ext_resource type="Texture2D" uid="uid://bk4y52y17vi5q" path="res://assets/textures/hydraulic_press.png" id="2_64xpp"]
+[ext_resource type="Script" path="res://scripts/ScalableObject.gd" id="3_d8j5x"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_slemd"]
+resource_local_to_scene = true
+size = Vector2(80, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8ckp"]
+resource_local_to_scene = true
+size = Vector2(600, 25)
+
+[node name="HydraulicPress" type="MeshInstance2D"]
+texture_filter = 1
+material = ExtResource("1_1svh1")
+position = Vector2(309, 167.235)
+mesh = SubResource("QuadMesh_slemd")
+texture = ExtResource("2_64xpp")
+script = ExtResource("3_d8j5x")
+do_gravity = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+input_pickable = true
+mass = 1000.0
+gravity_scale = 0.0
+continuous_cd = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_e8ckp")

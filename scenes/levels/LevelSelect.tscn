@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://jmq06ct7ih2u"]
+
+[ext_resource type="PackedScene" uid="uid://b6ao2rqsxsbwc" path="res://scenes/InGameUI.tscn" id="1_buqx1"]
+[ext_resource type="PackedScene" uid="uid://fkfix6ohny07" path="res://scenes/ParallaxBackground.tscn" id="1_v1org"]
+[ext_resource type="PackedScene" uid="uid://fh2pbrh1ah0h" path="res://scenes/objects/Robot.tscn" id="2_ctl7s"]
+[ext_resource type="PackedScene" uid="uid://cs5stsh7achoh" path="res://scenes/objects/ScalableObstacle.tscn" id="3_8yjh7"]
+[ext_resource type="PackedScene" uid="uid://ci0ycbtsi62fd" path="res://scenes/objects/ExitDoor.tscn" id="4_rkayp"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_ddlw3"]
+resource_local_to_scene = true
+size = Vector2(5000, 25)
+
+[node name="LevelSelect" type="Node2D"]
+
+[node name="InGameUI" parent="." instance=ExtResource("1_buqx1")]
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_v1org")]
+
+[node name="Robot" parent="." instance=ExtResource("2_ctl7s")]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, -47)
+
+[node name="Obstacle" parent="Node2D" instance=ExtResource("3_8yjh7")]
+mesh = SubResource("QuadMesh_ddlw3")
+
+[node name="Door" parent="Node2D" instance=ExtResource("4_rkayp")]
+position = Vector2(207, 91)
+go_to = "lvl_one"
+
+[node name="Label" type="Label" parent="Node2D/Door"]
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+text = "TO LEVEL 1"

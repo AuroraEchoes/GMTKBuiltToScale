@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://fkfix6ohny07"]
+
+[ext_resource type="Material" uid="uid://dx2mbjfqjjaq8" path="res://assets/materials/DarkenShader.tres" id="1_hd175"]
+[ext_resource type="Texture2D" uid="uid://c2kk7vgq3cx75" path="res://assets/textures/background/background.png" id="2_rbb7p"]
+[ext_resource type="Texture2D" uid="uid://7e8hc5jxpjp2" path="res://assets/textures/background/topconveyer.png" id="3_jd5vg"]
+[ext_resource type="Texture2D" uid="uid://t3u7bvla4sc3" path="res://assets/textures/background/bottomrail.png" id="4_f16bg"]
+[ext_resource type="Script" path="res://scripts/ParallaxConveyor.gd" id="5_4r3sk"]
+[ext_resource type="Texture2D" uid="uid://msmtpaftvnal" path="res://assets/textures/background/allboxes.png" id="6_lkn61"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+layer = -1
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
+scroll_ignore_camera_zoom = true
+
+[node name="Boxes" type="ParallaxLayer" parent="."]
+texture_filter = 1
+motion_scale = Vector2(0.1, 0.1)
+motion_offset = Vector2(0, -1000)
+motion_mirroring = Vector2(4320, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Boxes"]
+material = ExtResource("1_hd175")
+texture = ExtResource("2_rbb7p")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 4320, 2860)
+
+[node name="Conveyor" type="ParallaxLayer" parent="."]
+z_index = 1
+position = Vector2(0, -200)
+motion_scale = Vector2(2, 2)
+motion_mirroring = Vector2(2160, 0)
+
+[node name="Conveyor" type="Sprite2D" parent="Conveyor"]
+material = ExtResource("1_hd175")
+texture = ExtResource("3_jd5vg")
+centered = false
+
+[node name="Rail" type="Sprite2D" parent="Conveyor"]
+z_index = 2
+material = ExtResource("1_hd175")
+position = Vector2(0, -290)
+texture = ExtResource("4_f16bg")
+centered = false
+
+[node name="ConveyorBoxes" type="ParallaxLayer" parent="."]
+z_index = 2
+position = Vector2(0, -200)
+motion_scale = Vector2(2, 2)
+motion_offset = Vector2(0, 585)
+motion_mirroring = Vector2(2200, 0)
+script = ExtResource("5_4r3sk")
+scroll_speed = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="ConveyorBoxes"]
+material = ExtResource("1_hd175")
+texture = ExtResource("6_lkn61")
+centered = false
+region_enabled = true
+region_rect = Rect2(14.801, 635, 2160, 465)
