@@ -1,8 +1,8 @@
 extends MeshInstance2D
 class_name ScaleableObject
 
-@onready var collision: RigidBody2D = $RigidBody2D
-@onready var collider: CollisionShape2D = $RigidBody2D/CollisionShape2D
+@onready var collision: RigidBody2D = $".."
+@onready var collider: CollisionShape2D = $"../CollisionShape2D"
 @onready var player_ref: CharacterBody2D
 
 @export var material_type: Global.MaterialType
@@ -62,13 +62,14 @@ func _player_in_range() -> bool:
 	return dist_from_player < Global.GRAB_RANGE
 
 func _physics_process(_delta: float) -> void:
-	position += collision.position
-	collider.position = Vector2.ZERO
+	#position += collision.position
+	#collider.position = Vector2.ZERO
+	#rotation = collision.rotation
+	#collision.rotation = 0.0
+	pass
 
 func _change_scale(amount: float):
-	var weight_remaining: float = 1.0e308
-	if get_parent().get_parent() is LevelInfo:
-		weight_remaining = get_parent().get_parent().weight_remaining
+	var weight_remaining: float = get_node("/root/Level").weight_remaining
 	# Make sure we're not scaling outside of our range
 	var clamped_scale: float = clamp(tracked_scale + amount, Global.MIN_SCALE, Global.MAX_SCALE)
 	if tracked_scale + amount < Global.MIN_SCALE:
@@ -103,15 +104,15 @@ func _change_scale(amount: float):
 	else: 
 		StaticEventManager.not_enough_weight.emit()
 		return
-
+	
+	StaticEventManager.audio_scale_effect.emit(global_position, clamped_scale > tracked_scale)
 	# We know we're scaling, so let's do it!
 	tracked_scale = clamped_scale
 	self_trigger_scale_change.emit(tracked_scale)
 	tween_scale(self, "mesh:size", base_size * tracked_scale)
 	tween_scale(collider, "shape:size", base_size * tracked_scale)
 	StaticEventManager.element_scaled.emit(material_type, delta_weight, new_weight)
-	if get_parent().get_parent() is LevelInfo:
-		get_parent().get_parent().weight_remaining = weight_remaining
+	get_node("/root/Level").weight_remaining = weight_remaining
 
 func tween_scale(node: Node, property: String, value: Vector2):
 	create_tween().tween_property(node, property, value, 0.1)

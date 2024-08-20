@@ -1,25 +1,38 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbvuh5732ejjn"]
+[gd_scene load_steps=8 format=3 uid="uid://dbvuh5732ejjn"]
 
 [ext_resource type="Material" uid="uid://1sx4viwktvaw" path="res://assets/materials/NinePatchShader.tres" id="1_p60o5"]
+[ext_resource type="Script" path="res://scripts/PressurePlateMappingHack.gd" id="1_rv0va"]
 [ext_resource type="Texture2D" uid="uid://b6xmwhrqics2k" path="res://assets/textures/temp_pressure_plate.png" id="2_w7du6"]
 [ext_resource type="Script" path="res://scripts/PressurePlate.gd" id="3_ootys"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fqsl"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_gdd5x"]
 size = Vector2(64, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fqsl"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qp7mw"]
 size = Vector2(62, 20)
 
-[node name="PressurePlate" type="MeshInstance2D"]
+[node name="RigidBody2D" type="RigidBody2D"]
+input_pickable = true
+mass = 1000.0
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 5
+linear_velocity = Vector2(0, 9.49)
+script = ExtResource("1_rv0va")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8fqsl")
+
+[node name="PressurePlate" type="MeshInstance2D" parent="."]
 texture_filter = 1
 material = ExtResource("1_p60o5")
 mesh = SubResource("QuadMesh_gdd5x")
 texture = ExtResource("2_w7du6")
 script = ExtResource("3_ootys")
 
-[node name="WeightRemaining" type="Label" parent="."]
+[node name="WeightRemaining" type="Label" parent="PressurePlate"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -38,19 +51,8 @@ text = "50 kg"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-input_pickable = true
-mass = 1000.0
-continuous_cd = 2
-contact_monitor = true
-max_contacts_reported = 5
-linear_velocity = Vector2(0, 9.49)
+[node name="WeighArea" type="Area2D" parent="PressurePlate"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("RectangleShape2D_8fqsl")
-
-[node name="WeighArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WeighArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PressurePlate/WeighArea"]
 position = Vector2(0, -26)
 shape = SubResource("RectangleShape2D_qp7mw")

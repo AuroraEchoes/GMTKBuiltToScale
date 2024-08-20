@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://df3x86boli6be"]
+
+[ext_resource type="Material" uid="uid://1sx4viwktvaw" path="res://assets/materials/NinePatchShader.tres" id="1_0po3m"]
+[ext_resource type="Texture2D" uid="uid://4axlilsb4uwv" path="res://assets/textures/steel.png" id="2_ucu3s"]
+[ext_resource type="Script" path="res://scripts/ScalableObject.gd" id="3_u78dj"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_bhssy"]
+resource_local_to_scene = true
+size = Vector2(5000, 25)
+
+[node name="Obstacle" type="MeshInstance2D"]
+texture_filter = 1
+material = ExtResource("1_0po3m")
+mesh = SubResource("QuadMesh_bhssy")
+texture = ExtResource("2_ucu3s")
+script = ExtResource("3_u78dj")

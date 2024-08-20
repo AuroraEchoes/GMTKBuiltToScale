@@ -3,18 +3,19 @@
 [ext_resource type="Texture2D" uid="uid://xyonc24gk8q0" path="res://assets/textures/high_quality_protagonist.png" id="1_d8jk3"]
 [ext_resource type="Script" path="res://scripts/RobotController.gd" id="1_y3xf2"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uu7v5"]
-radius = 6.0
-height = 12.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ev1q2"]
+size = Vector2(9.66667, 14)
 
 [node name="Robot" type="CharacterBody2D"]
 texture_filter = 1
 position = Vector2(0, -183)
 scale = Vector2(3, 3)
+floor_max_angle = 1.22173
 script = ExtResource("1_y3xf2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_uu7v5")
+position = Vector2(-1, 0.666676)
+shape = SubResource("RectangleShape2D_ev1q2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_d8jk3")

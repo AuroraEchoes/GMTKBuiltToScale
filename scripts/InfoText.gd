@@ -7,6 +7,7 @@ func _ready() -> void:
 	StaticEventManager.already_at_max_size.connect(_already_at_max_size)
 	StaticEventManager.already_at_min_size.connect(_already_at_min_size)
 	StaticEventManager.w_to_enter_door.connect(_w_to_enter_door)
+	StaticEventManager.say_door_unlocked.connect(_door_unlocked)
 	hide()
 
 func _not_enough_weight():
@@ -24,6 +25,11 @@ func _already_at_min_size():
 func _w_to_enter_door():
 	text.text = "[b]Press [W] to enter[/b]"
 	_tween_alpha()
+
+func _door_unlocked():
+	text.text = "[b][color=#42a426]Exit door unlocked[/color][/b]"
+	_tween_alpha()
+
 
 func _tween_alpha():
 	show()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c63j7v2p2ecuw"]
+[gd_scene load_steps=16 format=3 uid="uid://c63j7v2p2ecuw"]
 
 [ext_resource type="Script" path="res://scripts/LevelInfo.gd" id="1_11tsf"]
 [ext_resource type="PackedScene" uid="uid://fkfix6ohny07" path="res://scenes/ParallaxBackground.tscn" id="1_fjiyl"]
@@ -6,23 +6,31 @@
 [ext_resource type="PackedScene" uid="uid://cs5stsh7achoh" path="res://scenes/objects/ScalableObstacle.tscn" id="3_q5y8p"]
 [ext_resource type="Texture2D" uid="uid://dn5gh0rsd2of" path="res://assets/textures/wood.png" id="4_0n3io"]
 [ext_resource type="PackedScene" uid="uid://dbvuh5732ejjn" path="res://scenes/objects/PressurePlate.tscn" id="5_awtit"]
+[ext_resource type="PackedScene" uid="uid://df3x86boli6be" path="res://scenes/objects/ObstacleMesh.tscn" id="5_um6f8"]
 [ext_resource type="PackedScene" uid="uid://ci0ycbtsi62fd" path="res://scenes/objects/ExitDoor.tscn" id="6_tburh"]
 [ext_resource type="PackedScene" uid="uid://b6ao2rqsxsbwc" path="res://scenes/InGameUI.tscn" id="6_vowbp"]
 [ext_resource type="PackedScene" uid="uid://drk7uunn36ho2" path="res://scenes/objects/OutOfBounds.tscn" id="9_uuat5"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_2hiv2"]
-size = Vector2(350, 25)
+[sub_resource type="QuadMesh" id="QuadMesh_c017s"]
+resource_local_to_scene = true
+size = Vector2(375, 25)
 
-[sub_resource type="QuadMesh" id="QuadMesh_3uo1q"]
-size = Vector2(350, 25)
+[sub_resource type="QuadMesh" id="QuadMesh_0cl8e"]
+resource_local_to_scene = true
+size = Vector2(375, 25)
 
-[sub_resource type="QuadMesh" id="QuadMesh_26j22"]
-size = Vector2(100, 100)
+[sub_resource type="QuadMesh" id="QuadMesh_kk5u1"]
+resource_local_to_scene = true
+size = Vector2(5000, 25)
+
+[sub_resource type="QuadMesh" id="QuadMesh_7t7dj"]
+resource_local_to_scene = true
+size = Vector2(150, 150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qi5os"]
 size = Vector2(1763, 862)
 
-[node name="Level1" type="Node2D"]
+[node name="Level" type="Node2D"]
 script = ExtResource("1_11tsf")
 weight_remaining = 100.0
 level_name = "lvl_one"
@@ -38,19 +46,27 @@ position = Vector2(0, -51)
 
 [node name="Obstacle" parent="Obstacles" instance=ExtResource("3_q5y8p")]
 position = Vector2(132, 150)
-mesh = SubResource("QuadMesh_2hiv2")
+
+[node name="Obstacle" parent="Obstacles/Obstacle" instance=ExtResource("5_um6f8")]
+mesh = SubResource("QuadMesh_c017s")
 
 [node name="Obstacle2" parent="Obstacles" instance=ExtResource("3_q5y8p")]
 position = Vector2(556, 150)
-mesh = SubResource("QuadMesh_3uo1q")
+
+[node name="Obstacle" parent="Obstacles/Obstacle2" instance=ExtResource("5_um6f8")]
+mesh = SubResource("QuadMesh_0cl8e")
 
 [node name="Obstacle4" parent="Obstacles" instance=ExtResource("3_q5y8p")]
 position = Vector2(353, 411)
-mesh = SubResource("QuadMesh_3uo1q")
+
+[node name="Obstacle" parent="Obstacles/Obstacle4" instance=ExtResource("5_um6f8")]
+mesh = SubResource("QuadMesh_kk5u1")
 
 [node name="Obstacle3" parent="Obstacles" instance=ExtResource("3_q5y8p")]
-position = Vector2(345, 73)
-mesh = SubResource("QuadMesh_26j22")
+position = Vector2(345, 28)
+
+[node name="Obstacle" parent="Obstacles/Obstacle3" instance=ExtResource("5_um6f8")]
+mesh = SubResource("QuadMesh_7t7dj")
 texture = ExtResource("4_0n3io")
 material_type = 1
 do_gravity = true
@@ -58,12 +74,11 @@ do_gravity = true
 [node name="PressurePlate" parent="Obstacles" instance=ExtResource("5_awtit")]
 position = Vector2(357, 376)
 required_force = 5.0
-do_gravity = true
 
 [node name="Door" parent="Obstacles" instance=ExtResource("6_tburh")]
 position = Vector2(498, 333)
-door_enable_disable = true
-go_to = "lvl_select"
+door_enable_disble = true
+go_to = "lvl_two"
 
 [node name="CanvasLayer" parent="." instance=ExtResource("6_vowbp")]
 

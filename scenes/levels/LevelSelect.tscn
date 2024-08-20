@@ -1,16 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://jmq06ct7ih2u"]
+[gd_scene load_steps=8 format=3 uid="uid://jmq06ct7ih2u"]
 
 [ext_resource type="PackedScene" uid="uid://b6ao2rqsxsbwc" path="res://scenes/InGameUI.tscn" id="1_buqx1"]
 [ext_resource type="PackedScene" uid="uid://fkfix6ohny07" path="res://scenes/ParallaxBackground.tscn" id="1_v1org"]
 [ext_resource type="PackedScene" uid="uid://fh2pbrh1ah0h" path="res://scenes/objects/Robot.tscn" id="2_ctl7s"]
 [ext_resource type="PackedScene" uid="uid://cs5stsh7achoh" path="res://scenes/objects/ScalableObstacle.tscn" id="3_8yjh7"]
 [ext_resource type="PackedScene" uid="uid://ci0ycbtsi62fd" path="res://scenes/objects/ExitDoor.tscn" id="4_rkayp"]
+[ext_resource type="PackedScene" uid="uid://df3x86boli6be" path="res://scenes/objects/ObstacleMesh.tscn" id="5_1uo1c"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_ddlw3"]
+[sub_resource type="QuadMesh" id="QuadMesh_ovv8u"]
 resource_local_to_scene = true
 size = Vector2(5000, 25)
 
-[node name="LevelSelect" type="Node2D"]
+[node name="Level" type="Node2D"]
 
 [node name="InGameUI" parent="." instance=ExtResource("1_buqx1")]
 
@@ -22,7 +23,10 @@ size = Vector2(5000, 25)
 position = Vector2(0, -47)
 
 [node name="Obstacle" parent="Node2D" instance=ExtResource("3_8yjh7")]
-mesh = SubResource("QuadMesh_ddlw3")
+position = Vector2(14, 176)
+
+[node name="Obstacle" parent="Node2D/Obstacle" instance=ExtResource("5_1uo1c")]
+mesh = SubResource("QuadMesh_ovv8u")
 
 [node name="Door" parent="Node2D" instance=ExtResource("4_rkayp")]
 position = Vector2(207, 91)
@@ -33,3 +37,23 @@ offset_right = 40.0
 offset_bottom = 23.0
 size_flags_horizontal = 0
 text = "TO LEVEL 1"
+
+[node name="Door2" parent="Node2D" instance=ExtResource("4_rkayp")]
+position = Vector2(334, 91)
+go_to = "lvl_two"
+
+[node name="Label" type="Label" parent="Node2D/Door2"]
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+text = "TO LEVEL 2"
+
+[node name="Door3" parent="Node2D" instance=ExtResource("4_rkayp")]
+position = Vector2(465, 89)
+go_to = "lvl_three"
+
+[node name="Label" type="Label" parent="Node2D/Door3"]
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+text = "TO LEVEL 3"

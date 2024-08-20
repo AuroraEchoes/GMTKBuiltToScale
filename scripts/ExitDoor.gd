@@ -1,4 +1,5 @@
 extends ScaleableObject
+class_name ExitDoor
 
 @onready var trigger_area: Area2D = $Area2D
 @onready var trigger_area_collider: CollisionShape2D = $Area2D/CollisionShape2D
@@ -16,20 +17,23 @@ func _ready() -> void:
 	super._ready()
 	area_base_size = trigger_area_collider.shape.size
 	self.self_trigger_scale_change.connect(func(scl: float): trigger_area_collider.shape.size = area_base_size * scl)
-	if door_enable_disable:
-		door_label = Label.new()
-		door_label.text = "Door Disabled"
-		add_child(door_label)
-		StaticEventManager.enable_door.connect(_on_enable_door)
+	StaticEventManager.door_hack_setup.connect(_ready_setup)
 	trigger_area.body_entered.connect(_on_enter_door)
 	trigger_area.body_exited.connect(_on_exit_door)
 	
+func _ready_setup(id: int):
+	if id == door_number:
+		if door_enable_disable:
+			door_label = Label.new()
+			door_label.text = "Door Disabled"
+			add_child(door_label)
+			StaticEventManager.enable_door.connect(_on_enable_door)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	super._process(delta)
 	if ((door_enabled and door_enable_disable) or not door_enable_disable) and in_area and Input.is_action_just_pressed("enter_door"):
-		Global.load_level(go_to, get_parent().get_parent())
+		Global.load_level(go_to, get_node("/root/Level"))
 
 func _on_enable_door(number: int):
 	if number == door_number:

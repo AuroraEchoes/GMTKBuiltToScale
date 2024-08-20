@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://ba28ogqceq3wn"]
+
+[ext_resource type="AudioStream" uid="uid://dym6lfby7udet" path="res://assets/audio/factory-ambiance.mp3" id="1_gb44g"]
+[ext_resource type="AudioStream" uid="uid://i86itcvglqde" path="res://assets/audio/metal-drop.mp3" id="2_b72ea"]
+[ext_resource type="AudioStream" uid="uid://clvemupareugh" path="res://assets/audio/wood-fall.mp3" id="3_3j8v7"]
+[ext_resource type="AudioStream" uid="uid://br0mk51otnkiw" path="res://assets/audio/scale-up.mp3" id="4_3l8cp"]
+[ext_resource type="AudioStream" uid="uid://dv02sqqh8wm38" path="res://assets/audio/scale-down.mp3" id="5_l1oi7"]
+
+[node name="Audio" type="Node"]
+
+[node name="FactoryAmbiance" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_gb44g")
+volume_db = -3.005
+autoplay = true
+
+[node name="MetalCrash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_b72ea")
+volume_db = 5.0
+
+[node name="WoodCrash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_3j8v7")
+volume_db = 5.0
+
+[node name="ScaleUp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_3l8cp")
+volume_db = -6.81
+
+[node name="ScaleDown" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_l1oi7")
+volume_db = -6.81

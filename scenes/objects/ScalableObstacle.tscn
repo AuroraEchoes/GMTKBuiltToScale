@@ -1,30 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://cs5stsh7achoh"]
+[gd_scene load_steps=3 format=3 uid="uid://cs5stsh7achoh"]
 
-[ext_resource type="Material" uid="uid://1sx4viwktvaw" path="res://assets/materials/NinePatchShader.tres" id="1_jr126"]
-[ext_resource type="Texture2D" uid="uid://4axlilsb4uwv" path="res://assets/textures/steel.png" id="2_bjjqb"]
-[ext_resource type="Script" path="res://scripts/ScalableObject.gd" id="3_oe8i4"]
-
-[sub_resource type="QuadMesh" id="QuadMesh_bhssy"]
-resource_local_to_scene = true
-size = Vector2(5000, 25)
+[ext_resource type="Script" path="res://scripts/CollisionSound.gd" id="1_28xkn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ouf2k"]
 resource_local_to_scene = true
 size = Vector2(600, 25)
 
-[node name="Obstacle" type="MeshInstance2D"]
-texture_filter = 1
-material = ExtResource("1_jr126")
-position = Vector2(309, 167.235)
-mesh = SubResource("QuadMesh_bhssy")
-texture = ExtResource("2_bjjqb")
-script = ExtResource("3_oe8i4")
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
+[node name="RigidBody2D" type="RigidBody2D"]
 input_pickable = true
 mass = 1000.0
 gravity_scale = 0.0
 continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 5
+script = ExtResource("1_28xkn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ouf2k")

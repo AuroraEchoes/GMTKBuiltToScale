@@ -1,4 +1,5 @@
 extends ScaleableObject
+class_name PressurePlate
 
 @export var required_force: float = 50.0
 @export var action: PressurePlateAction
@@ -10,6 +11,7 @@ extends ScaleableObject
 
 var weight: float = 0.0
 var area_base_size: Vector2
+var enabled: bool = false
 
 enum PressurePlateAction {
 	OPEN_DOOR
@@ -22,7 +24,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super._process(delta)
 	var weight_count: float = 0.0
-	for body in collision.get_colliding_bodies():
+	for body in pressure_area.get_overlapping_bodies():
 		if body.is_class("RigidBody2D") and !body.freeze:
 			weight_count += body.mass
 		elif body.is_class("CharacterBody2D"):
@@ -32,4 +34,7 @@ func _process(delta: float) -> void:
 	if weight >= required_force:
 		match action:
 			PressurePlateAction.OPEN_DOOR:
+				if !enabled:
+					StaticEventManager.say_door_unlocked.emit()
+				enabled = true
 				StaticEventManager.enable_door.emit(action_id)

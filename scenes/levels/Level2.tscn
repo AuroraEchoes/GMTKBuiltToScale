@@ -1,63 +1,130 @@
-[gd_scene load_steps=12 format=3 uid="uid://dks32ci8qjf3t"]
+[gd_scene load_steps=19 format=3 uid="uid://dks32ci8qjf3t"]
 
 [ext_resource type="Script" path="res://scripts/LevelInfo.gd" id="1_nrnge"]
 [ext_resource type="PackedScene" uid="uid://fkfix6ohny07" path="res://scenes/ParallaxBackground.tscn" id="2_0qf55"]
 [ext_resource type="PackedScene" uid="uid://fh2pbrh1ah0h" path="res://scenes/objects/Robot.tscn" id="3_bn5aw"]
 [ext_resource type="PackedScene" uid="uid://cs5stsh7achoh" path="res://scenes/objects/ScalableObstacle.tscn" id="4_y0o6s"]
 [ext_resource type="Texture2D" uid="uid://dn5gh0rsd2of" path="res://assets/textures/wood.png" id="5_5r78c"]
+[ext_resource type="PackedScene" uid="uid://df3x86boli6be" path="res://scenes/objects/ObstacleMesh.tscn" id="5_bsd1r"]
 [ext_resource type="PackedScene" uid="uid://dbvuh5732ejjn" path="res://scenes/objects/PressurePlate.tscn" id="6_uly31"]
 [ext_resource type="PackedScene" uid="uid://ci0ycbtsi62fd" path="res://scenes/objects/ExitDoor.tscn" id="7_4cyy0"]
 [ext_resource type="PackedScene" uid="uid://b6ao2rqsxsbwc" path="res://scenes/InGameUI.tscn" id="8_q5jbc"]
+[ext_resource type="PackedScene" uid="uid://drk7uunn36ho2" path="res://scenes/objects/OutOfBounds.tscn" id="10_677ya"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_2hiv2"]
-size = Vector2(350, 25)
+[sub_resource type="QuadMesh" id="QuadMesh_0fbaw"]
+resource_local_to_scene = true
+size = Vector2(2000, 25)
 
-[sub_resource type="QuadMesh" id="QuadMesh_3uo1q"]
-size = Vector2(350, 25)
+[sub_resource type="QuadMesh" id="QuadMesh_yhhv7"]
+resource_local_to_scene = true
+size = Vector2(100, 300)
 
-[sub_resource type="QuadMesh" id="QuadMesh_26j22"]
-size = Vector2(100, 100)
+[sub_resource type="QuadMesh" id="QuadMesh_big22"]
+resource_local_to_scene = true
+size = Vector2(40, 400)
 
-[node name="Level1" type="Node2D"]
+[sub_resource type="QuadMesh" id="QuadMesh_vw3oi"]
+resource_local_to_scene = true
+size = Vector2(2000, 25)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ag2ou"]
+resource_local_to_scene = true
+size = Vector2(45, 300)
+
+[sub_resource type="QuadMesh" id="QuadMesh_obles"]
+resource_local_to_scene = true
+size = Vector2(45, 300)
+
+[sub_resource type="QuadMesh" id="QuadMesh_qs1hs"]
+resource_local_to_scene = true
+size = Vector2(300, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_54tey"]
+size = Vector2(2242, 1236)
+
+[node name="Level" type="Node2D"]
 script = ExtResource("1_nrnge")
-weight_remaining = 100.0
+weight_remaining = 55.0
+level_name = "lvl_two"
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("2_0qf55")]
 offset = Vector2(0, 200)
 transform = Transform2D(0.5, 0, 0, 0.5, 0, 200)
 
 [node name="Robot" parent="." instance=ExtResource("3_bn5aw")]
+position = Vector2(-215, 27)
 
 [node name="Obstacles" type="Node2D" parent="."]
 position = Vector2(0, -51)
 
-[node name="Obstacle" parent="Obstacles" instance=ExtResource("4_y0o6s")]
-position = Vector2(132, 150)
-mesh = SubResource("QuadMesh_2hiv2")
-
 [node name="Obstacle2" parent="Obstacles" instance=ExtResource("4_y0o6s")]
-position = Vector2(556, 150)
-mesh = SubResource("QuadMesh_3uo1q")
+position = Vector2(682, 545.235)
 
-[node name="Obstacle4" parent="Obstacles" instance=ExtResource("4_y0o6s")]
-position = Vector2(353, 411)
-mesh = SubResource("QuadMesh_3uo1q")
+[node name="Obstacle" parent="Obstacles/Obstacle2" instance=ExtResource("5_bsd1r")]
+mesh = SubResource("QuadMesh_0fbaw")
 
 [node name="Obstacle3" parent="Obstacles" instance=ExtResource("4_y0o6s")]
-position = Vector2(345, 73)
-mesh = SubResource("QuadMesh_26j22")
+position = Vector2(244, 167)
+
+[node name="Obstacle" parent="Obstacles/Obstacle3" instance=ExtResource("5_bsd1r")]
+position = Vector2(-196, 209)
+mesh = SubResource("QuadMesh_yhhv7")
 texture = ExtResource("5_5r78c")
 material_type = 1
 do_gravity = true
 
-[node name="PressurePlate" parent="Obstacles" instance=ExtResource("6_uly31")]
-position = Vector2(357, 376)
-required_force = 5.0
+[node name="RigidBody2D" parent="Obstacles" instance=ExtResource("4_y0o6s")]
+position = Vector2(-687, -165)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D" instance=ExtResource("5_bsd1r")]
+position = Vector2(474, 494)
+mesh = SubResource("QuadMesh_big22")
 do_gravity = true
 
-[node name="Door" parent="Obstacles" instance=ExtResource("7_4cyy0")]
-position = Vector2(498, 333)
-door_enable_disable = true
-go_to = "lvl_select"
+[node name="RigidBody2D2" parent="Obstacles" instance=ExtResource("4_y0o6s")]
+position = Vector2(1313, 0)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D2" instance=ExtResource("5_bsd1r")]
+mesh = SubResource("QuadMesh_vw3oi")
+
+[node name="RigidBody2D3" parent="Obstacles" instance=ExtResource("4_y0o6s")]
+position = Vector2(674, -168)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D3" instance=ExtResource("5_bsd1r")]
+mesh = SubResource("QuadMesh_ag2ou")
+texture = ExtResource("5_5r78c")
+material_type = 1
+do_gravity = true
+
+[node name="RigidBody2D4" parent="Obstacles" instance=ExtResource("4_y0o6s")]
+position = Vector2(904, -166)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D4" instance=ExtResource("5_bsd1r")]
+mesh = SubResource("QuadMesh_obles")
+texture = ExtResource("5_5r78c")
+material_type = 1
+do_gravity = true
+
+[node name="RigidBody2D5" parent="Obstacles" instance=ExtResource("6_uly31")]
+position = Vector2(1033, -28)
+required_force = 1000.0
+
+[node name="RigidBody2D6" parent="Obstacles" instance=ExtResource("4_y0o6s")]
+position = Vector2(790, -340)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D6" instance=ExtResource("5_bsd1r")]
+mesh = SubResource("QuadMesh_qs1hs")
+do_gravity = true
+
+[node name="RigidBody2D7" parent="Obstacles" instance=ExtResource("7_4cyy0")]
+position = Vector2(1459, -85)
+door_enable_disble = true
+go_to = "lvl_three"
 
 [node name="CanvasLayer" parent="." instance=ExtResource("8_q5jbc")]
+
+[node name="OutOfBounds" parent="." instance=ExtResource("10_677ya")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutOfBounds"]
+position = Vector2(611, -65)
+shape = SubResource("RectangleShape2D_54tey")
