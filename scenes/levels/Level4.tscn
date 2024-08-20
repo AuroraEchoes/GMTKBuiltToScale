@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://dslesqc3ot5xd"]
+
+[ext_resource type="Script" path="res://scripts/LevelInfo.gd" id="1_k7v8f"]
+[ext_resource type="PackedScene" uid="uid://fkfix6ohny07" path="res://scenes/ParallaxBackground.tscn" id="2_b2qen"]
+[ext_resource type="PackedScene" uid="uid://fh2pbrh1ah0h" path="res://scenes/objects/Robot.tscn" id="3_cu2qb"]
+[ext_resource type="PackedScene" uid="uid://cs5stsh7achoh" path="res://scenes/objects/ScalableObstacle.tscn" id="4_fn0u3"]
+[ext_resource type="PackedScene" uid="uid://df3x86boli6be" path="res://scenes/objects/ObstacleMesh.tscn" id="5_15chv"]
+[ext_resource type="Texture2D" uid="uid://dn5gh0rsd2of" path="res://assets/textures/wood.png" id="6_2x6n5"]
+[ext_resource type="PackedScene" uid="uid://ci0ycbtsi62fd" path="res://scenes/objects/ExitDoor.tscn" id="8_vxfd6"]
+[ext_resource type="PackedScene" uid="uid://b6ao2rqsxsbwc" path="res://scenes/InGameUI.tscn" id="9_shisx"]
+[ext_resource type="PackedScene" uid="uid://drk7uunn36ho2" path="res://scenes/objects/OutOfBounds.tscn" id="10_y8ydc"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_xbwxq"]
+resource_local_to_scene = true
+size = Vector2(5000, 25)
+
+[sub_resource type="QuadMesh" id="QuadMesh_4agk3"]
+resource_local_to_scene = true
+size = Vector2(25, 200)
+
+[sub_resource type="QuadMesh" id="QuadMesh_fqn0t"]
+resource_local_to_scene = true
+size = Vector2(25, 200)
+
+[sub_resource type="QuadMesh" id="QuadMesh_24c5q"]
+resource_local_to_scene = true
+size = Vector2(175, 25)
+
+[sub_resource type="QuadMesh" id="QuadMesh_bw0gj"]
+resource_local_to_scene = true
+size = Vector2(400, 25)
+
+[sub_resource type="QuadMesh" id="QuadMesh_1uv6t"]
+resource_local_to_scene = true
+size = Vector2(15, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqbgm"]
+size = Vector2(1491, 838)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_k7v8f")
+weight_remaining = 25.0
+level_name = "lvl_three"
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("2_b2qen")]
+offset = Vector2(0, 200)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 200)
+
+[node name="Robot" parent="." instance=ExtResource("3_cu2qb")]
+position = Vector2(373, 293)
+
+[node name="Obstacles" type="Node2D" parent="."]
+position = Vector2(0, -51)
+
+[node name="RigidBody2D" parent="Obstacles" instance=ExtResource("4_fn0u3")]
+position = Vector2(368, 432)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D" instance=ExtResource("5_15chv")]
+mesh = SubResource("QuadMesh_xbwxq")
+
+[node name="RigidBody2D2" parent="Obstacles" instance=ExtResource("4_fn0u3")]
+position = Vector2(438, 320)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D2" instance=ExtResource("5_15chv")]
+mesh = SubResource("QuadMesh_4agk3")
+texture = ExtResource("6_2x6n5")
+material_type = 1
+do_gravity = true
+
+[node name="RigidBody2D3" parent="Obstacles" instance=ExtResource("4_fn0u3")]
+position = Vector2(302, 320)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D3" instance=ExtResource("5_15chv")]
+mesh = SubResource("QuadMesh_fqn0t")
+texture = ExtResource("6_2x6n5")
+material_type = 1
+do_gravity = true
+
+[node name="RigidBody2D4" parent="Obstacles" instance=ExtResource("4_fn0u3")]
+position = Vector2(363, 203)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D4" instance=ExtResource("5_15chv")]
+mesh = SubResource("QuadMesh_24c5q")
+texture = ExtResource("6_2x6n5")
+material_type = 1
+do_gravity = true
+
+[node name="RigidBody2D6" parent="Obstacles" instance=ExtResource("4_fn0u3")]
+position = Vector2(368, 432)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D6" instance=ExtResource("5_15chv")]
+position = Vector2(497, -156)
+mesh = SubResource("QuadMesh_bw0gj")
+
+[node name="RigidBody2D7" parent="Obstacles" instance=ExtResource("4_fn0u3")]
+position = Vector2(584, 405)
+
+[node name="Obstacle" parent="Obstacles/RigidBody2D7" instance=ExtResource("5_15chv")]
+mesh = SubResource("QuadMesh_1uv6t")
+material_type = 1
+do_gravity = true
+
+[node name="RigidBody2D5" parent="Obstacles" instance=ExtResource("8_vxfd6")]
+position = Vector2(914, 190)
+go_to = "lvl_select"
+
+[node name="CanvasLayer" parent="." instance=ExtResource("9_shisx")]
+
+[node name="OutOfBounds" parent="." instance=ExtResource("10_y8ydc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutOfBounds"]
+position = Vector2(591.5, 164)
+shape = SubResource("RectangleShape2D_yqbgm")

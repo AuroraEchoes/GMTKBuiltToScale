@@ -9,6 +9,8 @@ const LVL_SELECT: PackedScene = preload("res://scenes/levels/LevelSelect.tscn")
 const LVL_ONE: PackedScene = preload("res://scenes/levels/Level1.tscn")
 const LVL_TWO: PackedScene = preload("res://scenes/levels/Level2.tscn")
 const LVL_THREE: PackedScene = preload("res://scenes/levels/Level3.tscn")
+const LVL_FOUR: PackedScene = preload("res://scenes/levels/Level4.tscn")
+
 
 var level_weight_remaining: float = 7.5
 
@@ -42,3 +44,5 @@ func load_level(level_name: String, to_remove: Node):
 			get_parent().add_child(LVL_TWO.instantiate())
 		"lvl_three":
 			get_parent().add_child(LVL_THREE.instantiate())
+		"lvl_four":
+			get_parent().add_child(LVL_FOUR.instantiate())

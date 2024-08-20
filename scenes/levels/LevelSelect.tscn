@@ -70,3 +70,17 @@ offset_bottom = -46.0
 theme_override_fonts/font = ExtResource("7_1xmaf")
 theme_override_font_sizes/font_size = 24
 text = "Level 3"
+
+[node name="Door4" parent="Node2D" instance=ExtResource("4_rkayp")]
+position = Vector2(590, 89)
+go_to = "lvl_four"
+
+[node name="Label" type="Label" parent="Node2D/Door4"]
+texture_filter = 1
+offset_left = -75.0
+offset_top = -69.0
+offset_right = 6.0
+offset_bottom = -46.0
+theme_override_fonts/font = ExtResource("7_1xmaf")
+theme_override_font_sizes/font_size = 24
+text = "Level 4"

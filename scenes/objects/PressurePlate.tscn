@@ -33,6 +33,7 @@ material = ExtResource("1_p60o5")
 mesh = SubResource("QuadMesh_gdd5x")
 texture = ExtResource("2_w7du6")
 script = ExtResource("3_ootys")
+do_gravity = true
 
 [node name="WeightRemaining" type="Label" parent="PressurePlate"]
 offset_left = -20.5
