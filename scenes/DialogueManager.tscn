@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://r7nab2u6fjec"]
+[gd_scene load_steps=4 format=3 uid="uid://r7nab2u6fjec"]
 
 [ext_resource type="Script" path="res://scripts/DialogueManager.gd" id="1_hfhqr"]
-[ext_resource type="Texture2D" uid="uid://xyonc24gk8q0" path="res://assets/textures/high_quality_protagonist.png" id="1_pmln3"]
+[ext_resource type="Texture2D" uid="uid://d15xf36iuui3j" path="res://assets/textures/robot-portrait.png" id="2_tv7e4"]
+[ext_resource type="FontFile" uid="uid://i80jf583jvkv" path="res://assets/alphbeta.ttf" id="3_oeskf"]
 
 [node name="DialogueManager" type="Control"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,14 +31,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 8
-text = "[LMB] to continue"
-justification_flags = 161
-
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
@@ -50,14 +44,16 @@ layout_mode = 2
 [node name="CharacterPortrait" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-texture = ExtResource("1_pmln3")
-expand_mode = 2
+texture = ExtResource("2_tv7e4")
+expand_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="Name" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_oeskf")
+theme_override_fonts/bold_font = ExtResource("3_oeskf")
 bbcode_enabled = true
 text = "[b]Knock Off Kirby[/b]"
 fit_content = true
@@ -65,9 +61,27 @@ autowrap_mode = 0
 
 [node name="Dialogue" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_oeskf")
+theme_override_fonts/bold_font = ExtResource("3_oeskf")
 bbcode_enabled = true
 text = "Hello I have INVALUABLE information to contribute
 I am a very serious little guy who can be taken seriously
 and should not be mocked."
 fit_content = true
 autowrap_mode = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_oeskf")
+theme_override_font_sizes/font_size = 10
+text = "[LMB] to continue"
+justification_flags = 161

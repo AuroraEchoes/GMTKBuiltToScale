@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c63j7v2p2ecuw"]
+[gd_scene load_steps=27 format=3 uid="uid://c63j7v2p2ecuw"]
 
 [ext_resource type="Script" path="res://scripts/LevelInfo.gd" id="1_11tsf"]
 [ext_resource type="PackedScene" uid="uid://fkfix6ohny07" path="res://scenes/ParallaxBackground.tscn" id="1_fjiyl"]
@@ -10,10 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://ci0ycbtsi62fd" path="res://scenes/objects/ExitDoor.tscn" id="6_tburh"]
 [ext_resource type="PackedScene" uid="uid://b6ao2rqsxsbwc" path="res://scenes/InGameUI.tscn" id="6_vowbp"]
 [ext_resource type="PackedScene" uid="uid://drk7uunn36ho2" path="res://scenes/objects/OutOfBounds.tscn" id="9_uuat5"]
+[ext_resource type="PackedScene" uid="uid://r7nab2u6fjec" path="res://scenes/DialogueManager.tscn" id="10_ehi66"]
+[ext_resource type="Script" path="res://assets/resources/DialogueEntry.gd" id="11_ci204"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_c017s"]
 resource_local_to_scene = true
-size = Vector2(375, 25)
+size = Vector2(900, 25)
 
 [sub_resource type="QuadMesh" id="QuadMesh_0cl8e"]
 resource_local_to_scene = true
@@ -26,6 +28,74 @@ size = Vector2(5000, 25)
 [sub_resource type="QuadMesh" id="QuadMesh_7t7dj"]
 resource_local_to_scene = true
 size = Vector2(150, 150)
+
+[sub_resource type="QuadMesh" id="QuadMesh_fvy3h"]
+resource_local_to_scene = true
+size = Vector2(50, 150)
+
+[sub_resource type="Resource" id="Resource_dq0qn"]
+script = ExtResource("11_ci204")
+portrait = 0
+dialogue = "I’ve got to get out of this factory!"
+name = "ScalesBot 21"
+start_trigger = 0
+display_time = 2.0
+
+[sub_resource type="Resource" id="Resource_3ug6c"]
+script = ExtResource("11_ci204")
+portrait = 0
+dialogue = "Luckily, I managed to grab a scale ray on as I fled"
+name = "ScalesBot 21"
+start_trigger = 1
+display_time = 2.0
+
+[sub_resource type="Resource" id="Resource_kgoeq"]
+script = ExtResource("11_ci204")
+portrait = 0
+dialogue = "By pressing [E] and [Q] I can shrink whatever I select."
+name = "ScalesBot 21"
+start_trigger = 1
+display_time = 2.0
+
+[sub_resource type="Resource" id="Resource_6bbnf"]
+script = ExtResource("11_ci204")
+portrait = 0
+dialogue = "[p]It takes some of the scale ray’s charge every time I change the scale[/p][p]of an object away from its initial weight[/p]"
+name = "ScalesBot 21"
+start_trigger = 1
+display_time = 2.0
+
+[sub_resource type="Resource" id="Resource_n8yxv"]
+script = ExtResource("11_ci204")
+portrait = 0
+dialogue = "[p]I’d better be careful — the scale[/p][p]ray can only scale so much weight at once[/p]..."
+name = "ScalesBot 21"
+start_trigger = 1
+display_time = 2.0
+
+[sub_resource type="Resource" id="Resource_rcrb8"]
+script = ExtResource("11_ci204")
+portrait = 0
+dialogue = "[p]Luckily, returning an object towards it’s original size[/p][p]releases it’s weight for the scale ray to use again[/p]."
+name = "ScalesBot 21"
+start_trigger = 1
+display_time = 2.0
+
+[sub_resource type="Resource" id="Resource_lam0j"]
+script = ExtResource("11_ci204")
+portrait = 0
+dialogue = "[p]Good thing I can restart a level at any time[/p][p]by pressing [R]. Not that I know what that means...[/p]"
+name = "ScalesBot 21"
+start_trigger = 1
+display_time = 2.0
+
+[sub_resource type="Resource" id="Resource_b2ohl"]
+script = ExtResource("11_ci204")
+portrait = 0
+dialogue = "Now I’d better go quickly, before someone noticies I’m gone!"
+name = "ScalesBot 21"
+start_trigger = 1
+display_time = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qi5os"]
 size = Vector2(1763, 862)
@@ -40,12 +110,15 @@ offset = Vector2(0, 200)
 transform = Transform2D(0.5, 0, 0, 0.5, 0, 200)
 
 [node name="Robot" parent="." instance=ExtResource("2_ment2")]
+z_index = 6
+y_sort_enabled = true
+position = Vector2(-507, 7)
 
 [node name="Obstacles" type="Node2D" parent="."]
 position = Vector2(0, -51)
 
 [node name="Obstacle" parent="Obstacles" instance=ExtResource("3_q5y8p")]
-position = Vector2(132, 150)
+position = Vector2(-133, 150)
 
 [node name="Obstacle" parent="Obstacles/Obstacle" instance=ExtResource("5_um6f8")]
 mesh = SubResource("QuadMesh_c017s")
@@ -80,7 +153,18 @@ position = Vector2(498, 333)
 door_enable_disble = true
 go_to = "lvl_two"
 
+[node name="Obstacle5" parent="Obstacles" instance=ExtResource("3_q5y8p")]
+position = Vector2(-194, 63)
+
+[node name="Obstacle" parent="Obstacles/Obstacle5" instance=ExtResource("5_um6f8")]
+mesh = SubResource("QuadMesh_fvy3h")
+do_gravity = true
+
 [node name="CanvasLayer" parent="." instance=ExtResource("6_vowbp")]
+
+[node name="DialogueManager" parent="CanvasLayer" instance=ExtResource("10_ehi66")]
+mouse_filter = 2
+queued_dialogue = Array[ExtResource("11_ci204")]([SubResource("Resource_dq0qn"), SubResource("Resource_3ug6c"), SubResource("Resource_kgoeq"), SubResource("Resource_6bbnf"), SubResource("Resource_n8yxv"), SubResource("Resource_rcrb8"), SubResource("Resource_lam0j"), SubResource("Resource_b2ohl")])
 
 [node name="OutOfBounds" parent="." instance=ExtResource("9_uuat5")]
 

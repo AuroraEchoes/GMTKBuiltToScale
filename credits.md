@@ -1,5 +1,7 @@
 # Art
-betapop
+betapop — background elements, wood and steel textures, robot sketch
+AuroraEchoes — pressure plate, doors, robot (based on sketch by betapop)
+Ænigma — Alpha Beta font
 
 # Code
 AuroraEchoes
@@ -12,3 +14,4 @@ AuroraEchoes
 - [Space Factory](https://pixabay.com/sound-effects/space-factory-25190/)
 - [Wood Thud (mono)](https://pixabay.com/sound-effects/wooden-thud-mono-6244/)
 - [Dropped Metal Sheet](https://pixabay.com/sound-effects/dropped-metal-sheet-76060/)
+- [Laser gun](https://pixabay.com/sound-effects/laser-gun-72558/)

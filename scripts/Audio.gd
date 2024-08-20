@@ -26,7 +26,6 @@ func _play_collision(material: Global.MaterialType, velocity: float, scl: float,
 	if !audio_player.playing:
 		audio_player.position = position
 		audio_player.pitch_scale = (1 / scl) * 1000
-		print("ps ", audio_player.pitch_scale)
 		audio_player.volume_db = (min(velocity, 200) - 10.0) / 20
 		audio_player.play()
 

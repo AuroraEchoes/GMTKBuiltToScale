@@ -1,12 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://b6ao2rqsxsbwc"]
 
-[ext_resource type="PackedScene" uid="uid://r7nab2u6fjec" path="res://scenes/DialogueManager.tscn" id="1_pelxg"]
 [ext_resource type="Script" path="res://scripts/temp_WeightRemaining.gd" id="2_laahi"]
+[ext_resource type="FontFile" uid="uid://i80jf583jvkv" path="res://assets/alphbeta.ttf" id="3_deglw"]
 [ext_resource type="Script" path="res://scripts/InfoText.gd" id="3_egi6x"]
 
 [node name="InGameUI" type="CanvasLayer"]
-
-[node name="DialogueManager" parent="." instance=ExtResource("1_pelxg")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -33,6 +31,7 @@ theme_override_constants/margin_bottom = 6
 
 [node name="WeightRemaining" type="Label" parent="MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_deglw")
 text = "Weight Remaining: xkg"
 script = ExtResource("2_laahi")
 
@@ -51,6 +50,8 @@ theme_override_constants/margin_bottom = 6
 
 [node name="Text" type="RichTextLabel" parent="MarginContainer/SelectedInfoText/MarginContainer"]
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_deglw")
+theme_override_fonts/bold_font = ExtResource("3_deglw")
 bbcode_enabled = true
 text = "[b][color=#ad1b38]You don’t have enough weight left to do that[/color][/b]"
 fit_content = true

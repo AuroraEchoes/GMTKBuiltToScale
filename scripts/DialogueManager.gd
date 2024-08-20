@@ -59,7 +59,7 @@ func _load_character_portrait(character: CharacterPortrait) -> ImageTexture:
 	var image: Image
 	match character:
 		CharacterPortrait.ROBOT_TEMP:
-			image = Image.load_from_file("res://assets/textures/high_quality_protagonist.png")
+			image = Image.load_from_file("res://assets/textures/robot-portrait.png")
 		# You chose a thing which does exist, you silly billy
 		# Here, have a lead pipe instead :)
 		_:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://jmq06ct7ih2u"]
+[gd_scene load_steps=9 format=3 uid="uid://jmq06ct7ih2u"]
 
 [ext_resource type="PackedScene" uid="uid://b6ao2rqsxsbwc" path="res://scenes/InGameUI.tscn" id="1_buqx1"]
 [ext_resource type="PackedScene" uid="uid://fkfix6ohny07" path="res://scenes/ParallaxBackground.tscn" id="1_v1org"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cs5stsh7achoh" path="res://scenes/objects/ScalableObstacle.tscn" id="3_8yjh7"]
 [ext_resource type="PackedScene" uid="uid://ci0ycbtsi62fd" path="res://scenes/objects/ExitDoor.tscn" id="4_rkayp"]
 [ext_resource type="PackedScene" uid="uid://df3x86boli6be" path="res://scenes/objects/ObstacleMesh.tscn" id="5_1uo1c"]
+[ext_resource type="FontFile" uid="uid://i80jf583jvkv" path="res://assets/alphbeta.ttf" id="7_1xmaf"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_ovv8u"]
 resource_local_to_scene = true
@@ -33,27 +34,39 @@ position = Vector2(207, 91)
 go_to = "lvl_one"
 
 [node name="Label" type="Label" parent="Node2D/Door"]
-offset_right = 40.0
-offset_bottom = 23.0
-size_flags_horizontal = 0
-text = "TO LEVEL 1"
+texture_filter = 1
+offset_left = -81.0
+offset_top = -69.0
+offset_right = -5.0
+offset_bottom = -46.0
+theme_override_fonts/font = ExtResource("7_1xmaf")
+theme_override_font_sizes/font_size = 24
+text = "Level 1"
 
 [node name="Door2" parent="Node2D" instance=ExtResource("4_rkayp")]
 position = Vector2(334, 91)
 go_to = "lvl_two"
 
 [node name="Label" type="Label" parent="Node2D/Door2"]
-offset_right = 40.0
-offset_bottom = 23.0
-size_flags_horizontal = 0
-text = "TO LEVEL 2"
+texture_filter = 1
+offset_left = -78.0
+offset_top = -69.0
+offset_right = 3.0
+offset_bottom = -46.0
+theme_override_fonts/font = ExtResource("7_1xmaf")
+theme_override_font_sizes/font_size = 24
+text = "Level 2"
 
 [node name="Door3" parent="Node2D" instance=ExtResource("4_rkayp")]
 position = Vector2(465, 89)
 go_to = "lvl_three"
 
 [node name="Label" type="Label" parent="Node2D/Door3"]
-offset_right = 40.0
-offset_bottom = 23.0
-size_flags_horizontal = 0
-text = "TO LEVEL 3"
+texture_filter = 1
+offset_left = -75.0
+offset_top = -69.0
+offset_right = 6.0
+offset_bottom = -46.0
+theme_override_fonts/font = ExtResource("7_1xmaf")
+theme_override_font_sizes/font_size = 24
+text = "Level 3"
